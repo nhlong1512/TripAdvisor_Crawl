@@ -94,4 +94,4 @@ for link in links_list:
         "Province": "Thành phố Hồ Chí Minh"
     }) 
     df2 = pd.DataFrame(data_list)
-    df2.to_csv('./data/CrawlTripAdvisor_Hotels_All_1.csv', encoding='utf-16', index=False)
+    df2.to_csv('./data/CrawlTripAdvisor_Hotels_All_1.csv', encoding='utf-8', index=False)

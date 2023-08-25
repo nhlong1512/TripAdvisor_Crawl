@@ -57,18 +57,15 @@ def crawl_one_page(url_page):
     for link in links:
         links_list.append(link)
     df = pd.DataFrame(links_list)
-    df.to_csv('./data/CrawlTripAdvisor_FoodLinks_All_1_SaiGon.csv', encoding='utf-16', index=False)
+    df.to_csv('./data/CrawlTripAdvisor_FoodLinks_All_1_SaiGon.csv', encoding='utf-8', index=False)
 
 
 #Loop crawl pages
 for page_index in range(0,209): 
     page_oa = page_index * 30
-    print('pageOA --> ', page_oa)
-    urlPage=''
-    # if(page_index == 0): urlPage = 'https://www.tripadvisor.com.vn/FindRestaurants?geo=293925&broadened=true'
-    if(page_index != 0): urlPage = 'https://www.tripadvisor.com.vn/FindRestaurants?geo=293925&offset=' + str(page_oa) + '&broadened=true'
+    urlPage = 'https://www.tripadvisor.com.vn/FindRestaurants?geo=293925&offset=' + str(page_oa) + '&broadened=true'
     print(urlPage)
     crawl_one_page(urlPage)   
      
 df = pd.DataFrame(links_list)
-df.to_csv('./data/CrawlTripAdvisor_FoodLinks_All_1_SaiGon.csv', encoding='utf-16', index=False)
+df.to_csv('./data/CrawlTripAdvisor_FoodLinks_All_1_SaiGon.csv', encoding='utf-8', index=False)

@@ -64,7 +64,7 @@ for page_index in range(0,100):
 print('LINK_LIST: ', links_list)
 df = pd.DataFrame(links_list)
     
-df.to_csv('./data/CrawlTripAdvisor_HotelLinks_All_1.csv', encoding='utf-16', index=False)
+df.to_csv('./data/CrawlTripAdvisor_HotelLinks_All_1.csv', encoding='utf-8', index=False)
 
 
 for link in links_list:
@@ -171,4 +171,4 @@ for link in links_list:
     }) 
 
 df2 = pd.DataFrame(data_list)
-df2.to_csv('./data/CrawlTripAdvisor_Hotels_All_1.csv', encoding='utf-16', index=False)
+df2.to_csv('./data/CrawlTripAdvisor_Hotels_All_1.csv', encoding='utf-8', index=False)

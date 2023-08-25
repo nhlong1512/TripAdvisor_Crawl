@@ -10,7 +10,7 @@ from selenium.webdriver.support.ui import WebDriverWait
 import pandas as pd
 
 
-csv_file_path = 'D:/KLTN/TripAdvisor_Crawl/data/CrawlTripAdvisor_HotelLinks_All_1.csv'
+csv_file_path = 'D:/NPVSCode/CrawlData/TripAdvisor_Crawl/data/CrawlTripAdvisor_HotelLinks_All_2.csv'
 df = pd.read_csv(csv_file_path)
 links_column = df['link_hotel']
 links_list = links_column.to_numpy()
@@ -123,4 +123,4 @@ for link in links_list:
         "Rank_of_province": rank_of_province,
     }) 
     df2 = pd.DataFrame(data_list)
-    df2.to_csv('./data/CrawlTripAdvisor_Hotels_All_1.csv', encoding='utf-16', index=False)
+    df2.to_csv('./data/CrawlTripAdvisor_Hotels_All_2.csv', encoding='utf-8', index=False)
