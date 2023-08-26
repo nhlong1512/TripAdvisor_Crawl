@@ -39,14 +39,6 @@ def crawl_one_page(url_page):
         print(f"Data written to {csv_path}")
     else:
         print("No links found to write")
-    
-    # elems = driver.find_elements(By.CSS_SELECTOR, ".tnGGX [href]")
-    # links = [elem.get_attribute('href') for elem in elems]
-    # if links:
-    #     first_link = links[0]  # Lấy phần tử đầu tiên của danh sách
-    #     links_list.append(first_link)
-    #     print(first_link)
-    # print(links)
         
 #Loop crawl pages
 crawl_one_page("https://www.tripadvisor.com.vn/Attractions-g293921-Activities-Vietnam.html")
