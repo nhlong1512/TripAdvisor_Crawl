@@ -16,26 +16,43 @@ links_list = links_column.to_numpy()
 print(links_list)
 
 url_file_driver = os.path.join('etc', 'chromedriver.exe')
-service = SERVICE_STATUS_HANDLE(executable_path=url_file_driver)
-# driver = webdriver.Chrome(service=service)
+# options = webdriver.ChromeOptions()
+# options.add_argument('ignore-certificate-errors')
 
-# PROXY = 'http://ip:port'
-# chromeOptions = webdriver.ChromeOptions() 
-# chromeOptions.add_argument('--proxy-server=%s' % PROXY) 
-# chromeOptions.add_argument("ignore-certificate-errors")
-# # Headless mode for chrome browser
-# chromeOptions.add_argument('--headless=chrome')
 
-driver = webdriver.Chrome(service=service) 
-# driver.get("http://icanhazip.com")
-# print(wbe.title)
-# print(wbe.current_url)
-# print(wbe.page_source)
+# os.environ['WDM_PROGRESS_BAR'] = str(0)
+
+# chromeOptions = webdriver.ChromeOptions()
+# chromeOptions.add_argument('--no-sandbox')
+# chromeOptions.add_argument('--disable-gpu')
+# chromeOptions.add_argument('--headless')
+# chromeOptions.add_argument('--disable-dev-shm-usage')
+# chromeOptions.add_argument('--allow-running-insecure-content')
+# chromeOptions.add_argument('--ignore-certificate-errors')
+# chromeOptions.add_experimental_option('excludeSwitches', ['enable-automation'])
+# chromeOptions.add_experimental_option('excludeSwitches', ['enable-logging'])
+# chromeOptions.add_argument('-ignore -ssl-errors')
+# chromeOptions.add_argument('--ignore-certificate-errors-spki-list')
+# service = SERVICE_STATUS_HANDLE(executable_path=url_file_driver, chrome_options=chromeOptions)
+# driver = webdriver.Chrome(service=service) 
+
+
+
+profile = webdriver.FirefoxProfile()
+profile.accept_untrusted_certs = True
+url_file_driver = os.path.join('etc', 'geckodriver.exe')
+service = SERVICE_STATUS_HANDLE(executable_path=url_file_driver, firefox_profile=profile)
+driver = webdriver.Firefox(service=service)
+
 
 # Create lists to store data
 data_list = []
 i = 0
 for link in links_list:
+    if(i<3585):
+        i+=1
+        continue
+    
     print('URL_PAGE_IN_FUNCTION: -----> ', link)
     title = -1
     price = -1
@@ -46,7 +63,6 @@ for link in links_list:
     rank_of_province = -1
     link_thingtodo = -1
     
-    sleep(random.randint(0,1))
     driver.get(link)
     
     link_thingtodo = link
@@ -150,7 +166,8 @@ for link in links_list:
     df2.to_csv('../data/ThingToDo/Details/ThingToDoAllDetails.csv', encoding='utf-8', index=False)
     i += 1
     print("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii: --->>>>>>", i)
-    if(i >= 100): break
+    if(i >= 13080): break
 
+driver.close()
 df2 = pd.DataFrame(data_list)
 df2.to_csv('../data/ThingToDo/Details/ThingToDoAllDetails.csv', encoding='utf-8', index=False)
