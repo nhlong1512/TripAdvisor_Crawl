@@ -1,4 +1,5 @@
 from ctypes.wintypes import SERVICE_STATUS_HANDLE
+import time
 import numpy as np
 from selenium import webdriver
 from time import sleep
@@ -49,7 +50,7 @@ driver = webdriver.Firefox(service=service)
 data_list = []
 i = 0
 for link in links_list:
-    if(i<3585):
+    if(i<6615):
         i+=1
         continue
     
@@ -64,6 +65,24 @@ for link in links_list:
     link_thingtodo = -1
     
     driver.get(link)
+    start_time = time.time()  # Lưu thời điểm bắt đầu tải trang
+    while True:
+        current_time = time.time()
+        elapsed_time = current_time - start_time
+        if elapsed_time > 5:  # Nếu thời gian tải trang vượt quá 5 giây
+            print("Page loading took too long, moving to next URL.")
+            break  # Thoát khỏi vòng lặp để chuyển sang URL tiếp theo
+        
+        # Kiểm tra xem trang đã tải xong chưa, ví dụ kiểm tra title hay một phần tử nào đó
+        try:
+            title_element = driver.find_element(By.CSS_SELECTOR, ".iSVKr")
+            if title_element.is_displayed():
+                break  # Thoát khỏi vòng lặp vì trang đã tải xong
+        except Exception:
+            pass
+        
+        # Chờ một khoảng thời gian rồi kiểm tra lại
+        time.sleep(1)
     
     link_thingtodo = link
     #Title
@@ -162,6 +181,8 @@ for link in links_list:
         "Rank_of_province": rank_of_province,
         "Link_ThingToDo": link_thingtodo,
     }) 
+    
+    
     df2 = pd.DataFrame(data_list)
     df2.to_csv('../data/ThingToDo/Details/ThingToDoAllDetails.csv', encoding='utf-8', index=False)
     i += 1
