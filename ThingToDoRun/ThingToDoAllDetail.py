@@ -10,7 +10,7 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 import pandas as pd
 
-csv_file_path = 'D:/KLTN/TripAdvisor_Crawl/data/ThingToDo/Links/ThingTodoAllLinks.csv'
+csv_file_path = 'D:/NPVSCode/CrawlData/TripAdvisor_Crawl/data/ThingToDo/Links/ThingTodoAllLinks.csv'
 df = pd.read_csv(csv_file_path)
 links_column = df['Link']
 links_list = links_column.to_numpy()
@@ -29,7 +29,7 @@ driver = webdriver.Firefox(service=service)
 data_list = []
 i = 0
 for link in links_list:
-    if(i<10830):
+    if(i<11855):
         i+=1
         continue
     
