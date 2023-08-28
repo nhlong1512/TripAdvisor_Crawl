@@ -29,7 +29,7 @@ driver = webdriver.Firefox(service=service)
 data_list = []
 i = 0
 for link in links_list:
-    if(i<10384):
+    if(i<10830):
         i+=1
         continue
     
