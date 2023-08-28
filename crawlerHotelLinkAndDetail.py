@@ -18,24 +18,12 @@ driver = webdriver.Chrome(service=service)
 data_list = []
 links_list = []
 
-def wait_and_click_see_all_btn():
-    max_attempts = 5  # Số lần thử tối đa
-    attempt = 0
-    
-    while attempt < max_attempts:
-        try:
-            see_all_btn = driver.find_element("xpath", "/html/body/div[1]/main/div[3]/div/div[2]/div/div[1]/div[2]/div[3]/div/div[12]/div/button")
-            see_all_btn.click()
-            return  # Thoát khỏi vòng lặp nếu nhấp thành công
-        except NoSuchElementException:
-            print("See All button not found, attempt:", attempt + 1)
-        except ElementNotInteractableException:
-            print("Failed to click See All button, attempt:", attempt + 1)
-        except ElementClickInterceptedException:
-            print("Failed to click See All button, attempt:", attempt + 1)
-            
-        attempt += 1
-        sleep(3)  # Đợi 3 giây trước khi thử lại
+csv_file_path = 'D:/KLTN/TripAdvisor_Crawl/data/ThingToDo/Links/ThingToDoAllLinks.csv'
+df = pd.read_csv(csv_file_path)
+links_column = df['Link']
+links_list = links_column.to_numpy()
+print(links_list)
+
 
 
 def crawl_one_page(url_page): 
@@ -43,7 +31,6 @@ def crawl_one_page(url_page):
     print('URL_PAGE_IN_FUNCTION: -----> ', url_page)
     driver.get(url_page)
     sleep(random.randint(10,15))
-    wait_and_click_see_all_btn()
     elems = driver.find_elements(By.CSS_SELECTOR, ".jsTLT [href]")
     links = [elem.get_attribute('href') for elem in elems]
     print(links)

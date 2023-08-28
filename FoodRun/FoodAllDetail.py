@@ -9,9 +9,9 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 import pandas as pd
 
-csv_file_path = 'D:/NPVSCode/CrawlData/TripAdvisor_Crawl/data/Food/Links/LinkPageProvinces.csv'
+csv_file_path = 'D:/NPVSCode/CrawlData/TripAdvisor_Crawl/data/ThingToDo/Links/ThingTodoAllLinks.csv'
 df = pd.read_csv(csv_file_path)
-links_column = df['link_page_province']
+links_column = df['Link']
 links_list = links_column.to_numpy()
 print(links_list)
 
@@ -20,7 +20,7 @@ service = SERVICE_STATUS_HANDLE(executable_path=url_file_driver)
 driver = webdriver.Chrome(service=service)
 # Create lists to store data
 data_list = []
-
+i = 0
 for link in links_list:
     print('URL_PAGE_IN_FUNCTION: -----> ', link)
     title = -1
@@ -30,51 +30,53 @@ for link in links_list:
     img_url = -1
     description = -1
     rank_of_province = -1
-    type_of_food = -1
-    
-    driver.get(link)
+    try:
+        driver.get(link)
+    except Exception as e:
+        print("Exception when get link: ", e)
+        pass
     #Title
     try:
-        title = driver.find_element(By.CSS_SELECTOR, ".HjBfq").text
+        title = driver.find_element(By.CSS_SELECTOR, ".iSVKr").text
     except Exception as e:
+        print("Exception Title: ", e)
         pass
     #Rating
     try:
-        rating = driver.find_element(By.CSS_SELECTOR, ".ZDEqb").text
+        rating = driver.find_element(By.CSS_SELECTOR, ".uuBRH").text
     except Exception as e:
+        print("Exception Rating: ", e)
         pass
     #Image url
     try:
-        img_url = driver.find_element("xpath", "/html/body/div[2]/div[2]/div[1]/div/div/div[1]/div[1]/div[2]/div[3]/div/div/img").get_attribute("src")
+        img_url = driver.find_element("xpath", "/html/body/div[1]/main/div[1]/div[2]/div[2]/div[2]/div/div[1]/section[2]/div/div/div/div[2]/div/div/div/div[1]/div/div/div/div[1]/div/div[1]/ul/li[1]/div/picture/img").get_attribute("src")
     except Exception as e:
+        print("Exception Image URL: ", e)
         pass
     #Price
     try: 
-        price = driver.find_element(By.CSS_SELECTOR, ".SrqKb").text
+        price = -1
     except Exception as e: 
+        print("Exception Price: ", e)
         pass
     #Address
     try: 
-        address = driver.find_element(By.CSS_SELECTOR, ".yEWoV").text
+        address = driver.find_element("xpath", "/html/body/div[1]/main/div[1]/div[2]/div[2]/div[2]/div/div[1]/section[4]/div/div/div[2]/div[1]/div/div/div/div[1]/button/span").text
     except Exception as e:
+        print("Exception Address: ", e)
         pass
     #Description
     try: 
-        description = driver.find_element("xpath", "/html/body/div[2]/div[2]/div[2]/div[6]/div/div[1]/div[3]/div/div[5]/div/div[1]/div[2]/div/div/div/div[2]/div[2]/div/p").text
+        description = driver.find_element("xpath", "/html/body/div[1]/main/div[1]/div[2]/div[2]/div[2]/div/div[1]/section[7]/div/div/div/section/section/div[1]/div/div[5]/div/div[1]/div/div/div[5]/div[1]/div").text
     except Exception as e: 
+        print("Exception Description: ", e)
         pass
     #Rank of province
     try: 
-        rank_of_province = driver.find_element("xpath", "/html/body/div[2]/div[1]/div/div[4]/div/div/div[2]/span[2]/a/span").text
+        rank_of_province = driver.find_element(By.CSS_SELECTOR, ".KxBGd").text
     except Exception as e:
+        print("Exception Rank of province: ", e)
         pass
-    #Type of food
-    try: 
-        type_of_food = driver.find_element("xpath", "/html/body/div[2]/div[1]/div/div[4]/div/div/div[2]/span[3]").text
-    except Exception as e:
-        pass
-    
-        
     data_list.append({
         "Title": title,
         "Price": price,
@@ -83,10 +85,11 @@ for link in links_list:
         "Img_URL": img_url,
         "Description": description,
         "Rank_of_province": rank_of_province,
-        "Type_of_food": type_of_food,
     }) 
     df2 = pd.DataFrame(data_list)
-    df2.to_csv('./data/CrawlTripAdvisor_Hotels_All_1.csv', encoding='utf-8', index=False)
+    df2.to_csv('../data/ThingToDo/Details/ThingToDoAllDetails.csv', encoding='utf-8', index=False)
+    i += 1
+    if(i == 300): break
 
 df2 = pd.DataFrame(data_list)
-df2.to_csv('./data/CrawlTripAdvisor_Hotels_All_1.csv', encoding='utf-8', index=False)
+df2.to_csv('../data/ThingToDo/Details/ThingToDoAllDetails.csv', encoding='utf-8', index=False)

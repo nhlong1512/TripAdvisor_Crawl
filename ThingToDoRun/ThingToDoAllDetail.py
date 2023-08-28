@@ -17,27 +17,6 @@ links_list = links_column.to_numpy()
 print(links_list)
 
 url_file_driver = os.path.join('etc', 'chromedriver.exe')
-# options = webdriver.ChromeOptions()
-# options.add_argument('ignore-certificate-errors')
-
-
-# os.environ['WDM_PROGRESS_BAR'] = str(0)
-
-# chromeOptions = webdriver.ChromeOptions()
-# chromeOptions.add_argument('--no-sandbox')
-# chromeOptions.add_argument('--disable-gpu')
-# chromeOptions.add_argument('--headless')
-# chromeOptions.add_argument('--disable-dev-shm-usage')
-# chromeOptions.add_argument('--allow-running-insecure-content')
-# chromeOptions.add_argument('--ignore-certificate-errors')
-# chromeOptions.add_experimental_option('excludeSwitches', ['enable-automation'])
-# chromeOptions.add_experimental_option('excludeSwitches', ['enable-logging'])
-# chromeOptions.add_argument('-ignore -ssl-errors')
-# chromeOptions.add_argument('--ignore-certificate-errors-spki-list')
-# service = SERVICE_STATUS_HANDLE(executable_path=url_file_driver, chrome_options=chromeOptions)
-# driver = webdriver.Chrome(service=service) 
-
-
 
 profile = webdriver.FirefoxProfile()
 profile.accept_untrusted_certs = True
@@ -50,7 +29,7 @@ driver = webdriver.Firefox(service=service)
 data_list = []
 i = 0
 for link in links_list:
-    if(i<6615):
+    if(i<10384):
         i+=1
         continue
     
