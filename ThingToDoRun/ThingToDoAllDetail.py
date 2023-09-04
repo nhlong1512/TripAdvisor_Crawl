@@ -16,7 +16,6 @@ links_column = df['Link']
 links_list = links_column.to_numpy()
 print(links_list)
 
-url_file_driver = os.path.join('etc', 'chromedriver.exe')
 
 profile = webdriver.FirefoxProfile()
 profile.accept_untrusted_certs = True
@@ -29,7 +28,6 @@ driver = webdriver.Firefox(service=service)
 data_list = []
 i = 0
 for link in links_list:
-    
     print('URL_PAGE_IN_FUNCTION: -----> ', link)
     title = -1
     price = -1
@@ -48,7 +46,6 @@ for link in links_list:
         if elapsed_time > 5:  # Nếu thời gian tải trang vượt quá 5 giây
             print("Page loading took too long, moving to next URL.")
             break  # Thoát khỏi vòng lặp để chuyển sang URL tiếp theo
-        
         # Kiểm tra xem trang đã tải xong chưa, ví dụ kiểm tra title hay một phần tử nào đó
         try:
             title_element = driver.find_element(By.CSS_SELECTOR, ".iSVKr")
