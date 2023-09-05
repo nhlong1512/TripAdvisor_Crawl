@@ -10,23 +10,26 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait
 import pandas as pd
 
-csv_file_path = 'D:/KLTN/FinalData/RemovedDuplicateOutDoorAllLinks.csv'
+csv_file_path = 'D:/NPVSCode/CrawlData/TripAdvisor_Crawl/FinalData/RemovedDuplicateOutDoorAllLinks.csv'
 df = pd.read_csv(csv_file_path)
 links_column = df['Link']
 links_list = links_column.to_numpy()
 print(links_list)
 
-
 url_file_driver = os.path.join('etc', 'chromedriver.exe')
-service = SERVICE_STATUS_HANDLE(executable_path=url_file_driver)
-driver = webdriver.Chrome(service=service)
+
+profile = webdriver.FirefoxProfile()
+profile.accept_untrusted_certs = True
+url_file_driver = os.path.join('etc', 'geckodriver.exe')
+service = SERVICE_STATUS_HANDLE(executable_path=url_file_driver, firefox_profile=profile)
+driver = webdriver.Firefox(service=service)
 
 
 # Create lists to store data
 data_list = []
 i = 0
 for link in links_list:
-    if(i <= 2077): 
+    if(i <= 3407): 
         i += 1
         continue
     print('URL_PAGE_IN_FUNCTION: -----> ', link)
@@ -40,6 +43,7 @@ for link in links_list:
     link_out_door = -1
     
     driver.get(link)
+    time.sleep(1)
     link_out_door = link
     start_time = time.time()  # Lưu thời điểm bắt đầu tải trang
     while True:
@@ -109,8 +113,11 @@ for link in links_list:
                                 try: 
                                     img_url = driver.find_element("xpath", "/html/body/div[1]/main/div[1]/div[2]/div[2]/div[2]/div/div[1]/section[2]/div/div/div/div[1]/div/div/div[1]/div/div[2]/div/ul/li[1]/button/div/picture/img").get_attribute("src")
                                 except NoSuchElementException:
-                                    print("Exception No Such Element Image URL")
-                                    pass
+                                    try: 
+                                        img_url = driver.find_element("xpath", "/html/body/div[1]/main/div[1]/div[2]/div[2]/div[2]/div/div[1]/section[2]/div/div/div/div[1]/div/div[1]/div[1]/picture/img").get_attribute("src")
+                                    except NoSuchElementException: 
+                                        print("Exception No Such Element Image URL")
+                                        pass
         except Exception as e:
             print("Exception Image URL: ", e)
             pass
@@ -180,11 +187,11 @@ for link in links_list:
     
     
     df2 = pd.DataFrame(data_list)
-    df2.to_csv('../data/ThingToDo/Details/OutDoorAllDetails.csv', encoding='utf-8', index=False)
+    df2.to_csv('../data/ThingToDo/Details/OutDoorAllDetails2.csv', encoding='utf-8', index=False)
     i += 1
     print("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii: --->>>>>>", i)
     if(i >= 3490): break
 
 driver.close()
 df2 = pd.DataFrame(data_list)
-df2.to_csv('../data/ThingToDo/Details/OutDoorAllDetails3.csv', encoding='utf-8', index=False)
+df2.to_csv('../data/ThingToDo/Details/OutDoorAllDetails2.csv', encoding='utf-8', index=False)

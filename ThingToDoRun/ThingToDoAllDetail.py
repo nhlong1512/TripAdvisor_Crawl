@@ -39,6 +39,7 @@ for link in links_list:
     link_thingtodo = -1
     
     driver.get(link)
+    time.sleep(1)
     start_time = time.time()  # Lưu thời điểm bắt đầu tải trang
     while True:
         current_time = time.time()

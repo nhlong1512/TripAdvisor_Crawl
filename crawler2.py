@@ -17,7 +17,7 @@ driver = webdriver.Chrome(service=service)
 
 # Open URL
 driver.get("https://www.tripadvisor.com.vn/Hotels-g293921-Vietnam-Hotels.html")
-sleep(random.randint(10,15))
+sleep(1)
 try: 
     # see_all_btn = driver.find_element("xpath", "/html/body/div[1]/main/div[3]/div/div[2]/div/div[1]/div[2]/div[3]/div/div[12]/div/button")
     see_all_btn = WebDriverWait(driver,15).until(
