@@ -29,7 +29,7 @@ driver = webdriver.Firefox(service=service)
 data_list = []
 i = 0
 for link in links_list:
-    if(i <= 219): 
+    if(i <= 722): 
         i += 1
         continue
     print('URL_PAGE_IN_FUNCTION: -----> ', link)
