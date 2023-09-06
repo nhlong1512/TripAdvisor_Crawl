@@ -28,7 +28,7 @@ driver = webdriver.Firefox(service=service)
 data_list = []
 i = 0
 for link in links_list:
-    if(i <= 1132): 
+    if(i <= 4767): 
         i += 1
         continue
     print('URL_PAGE_IN_FUNCTION: -----> ', link)
@@ -65,8 +65,11 @@ for link in links_list:
     try:
         title = driver.find_element(By.CSS_SELECTOR, ".HjBfq").text
     except NoSuchElementException:
-        print("Exception No Such Element Title")
-        pass
+        try:
+            title = driver.find_element("xpath", "/html/body/div[2]/div[1]/div/div[4]/div/div/div[1]/h1").text
+        except NoSuchElementException:
+            print("Exception No Such Element Title")
+            pass
     except Exception as e:
         print("Exception Title: ", e)
         pass
