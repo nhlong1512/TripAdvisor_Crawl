@@ -28,7 +28,7 @@ driver = webdriver.Firefox(service=service)
 data_list = []
 i = 0
 for link in links_list:
-    if(i <= 961): 
+    if(i <= 1132): 
         i += 1
         continue
     print('URL_PAGE_IN_FUNCTION: -----> ', link)
@@ -77,7 +77,7 @@ for link in links_list:
         try:
             rating = driver.find_element("xpath", "/html/body/div[2]/div[2]/div[2]/div[2]/div/div[1]/div/div[1]/div/div[1]/div[1]/span[1]").text
         except NoSuchElementException:
-            print("ExceptionNoSuchElement Rating: ", e)
+            print("ExceptionNoSuchElement Rating")
             pass
     except Exception as e:
         print("Exception Rating: ", e)
@@ -92,8 +92,14 @@ for link in links_list:
             try: 
                 img_url = driver.find_element("xpath", "/html/body/div[2]/div[2]/div[1]/div/div/div[1]/div[1]/div[2]/div[4]/div/div[1]/div/div/img").get_attribute("src")
             except NoSuchElementException: 
-                print("Exception No Such Element Image URL")
-                pass
+                try: 
+                    img_url = driver.find_element("xpath", "/html/body/div[2]/div[2]/div[1]/div/div/div[1]/div[1]/div[2]/div[3]/div/div[3]/div/div/img").get_attribute("src")
+                except NoSuchElementException: 
+                    try: 
+                        img_url = driver.find_element("xpath", "/html/body/div[2]/div[2]/div[1]/div/div/div[1]/div[1]/div[2]/div[3]/div/div[4]/div/div/img").get_attribute("src")
+                    except NoSuchElementException:
+                        print("Exception No Such Element Image URL")
+                        pass
         except Exception as e:
             print("Exception Image URL: ", e)
             pass
@@ -175,11 +181,11 @@ for link in links_list:
     
     
     df2 = pd.DataFrame(data_list)
-    df2.to_csv('../data/Food/Details/FoodAllDetails.csv', encoding='utf-8', index=False)
+    df2.to_csv('../data/Food/Details/FoodAllDetails2.csv', encoding='utf-8', index=False)
     i += 1
     print("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii: --->>>>>>", i)
     if(i >= 16418): break
 
 driver.close()
 df2 = pd.DataFrame(data_list)
-df2.to_csv('../data/Food/Details/FoodAllDetails.csv', encoding='utf-8', index=False)
+df2.to_csv('../data/Food/Details/FoodAllDetails2.csv', encoding='utf-8', index=False)
