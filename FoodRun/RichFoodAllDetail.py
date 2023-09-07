@@ -28,7 +28,7 @@ driver = webdriver.Firefox(service=service)
 data_list = []
 i = 0
 for link in links_list:
-    if(i <= 4767): 
+    if(i <= 11892): 
         i += 1
         continue
     print('URL_PAGE_IN_FUNCTION: -----> ', link)
@@ -184,11 +184,11 @@ for link in links_list:
     
     
     df2 = pd.DataFrame(data_list)
-    df2.to_csv('../data/Food/Details/FoodAllDetails2.csv', encoding='utf-8', index=False)
+    df2.to_csv('../data/Food/Details/FoodAllDetails3.csv', encoding='utf-8', index=False)
     i += 1
     print("iiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiiii: --->>>>>>", i)
     if(i >= 16418): break
 
 driver.close()
 df2 = pd.DataFrame(data_list)
-df2.to_csv('../data/Food/Details/FoodAllDetails2.csv', encoding='utf-8', index=False)
+df2.to_csv('../data/Food/Details/FoodAllDetails3.csv', encoding='utf-8', index=False)
